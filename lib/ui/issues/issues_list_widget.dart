@@ -2,9 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gh_issue_tracker/constants/app_theme.dart';
+import 'package:gh_issue_tracker/logic/issues/models/issues_model.dart';
 import 'package:gh_issue_tracker/ui/widgets/containers.dart';
 
-class IssuesList extends StatelessWidget {
+class IssuesList extends StatefulWidget {
+  final List<Issue> issues;
+  final VoidCallback loadIssues;
+  final bool isLoading;
+  const IssuesList({Key key, this.issues, this.loadIssues, this.isLoading})
+      : super(key: key);
+
+  @override
+  _IssuesListState createState() => _IssuesListState();
+}
+
+class _IssuesListState extends State<IssuesList> {
+  // ScrollController _controller;
+
+  // @override
+  // void initState(){
+  //   _controller = ScrollController()
+  //   ..addListener(() {
+  //     if widget.isLoading && _controller.position.maxScrollExtent == _controller.position.pixels){
+  //       widget.loadMore;
+  //     }
+  //   });
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> issues = [
@@ -46,16 +71,18 @@ class IssuesList extends StatelessWidget {
       child: Column(
         children: [
           // Load the lists here
-          ...List.generate(
-            issues.length,
-            (index) => IssuesCard(
-              dateOpened: issues[index]['openedDate'],
-              issueComments: issues[index]['comments'],
-              issueStatus: issues[index]['issueStatus'],
-              issueTitle: '${issues[index]['issueTitle']} ',
-              issueUser: issues[index]['username'],
-            ),
-          ),
+          widget.issues == null
+              ? Container()
+              : List.generate(
+                  issues.length,
+                  (index) => IssuesCard(
+                    dateOpened: issues[index]['openedDate'],
+                    issueComments: issues[index]['comments'],
+                    issueStatus: issues[index]['issueStatus'],
+                    issueTitle: '${issues[index]['issueTitle']} ',
+                    issueUser: issues[index]['username'],
+                  ),
+                ),
         ],
       ),
     );

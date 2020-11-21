@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gh_issue_tracker/constants/app_theme.dart';
 import 'package:gh_issue_tracker/ui/widgets/app_title_date.dart';
 import 'package:gh_issue_tracker/ui/widgets/containers.dart';
-import 'package:gh_issue_tracker/ui/widgets/issues_list.dart';
+import 'package:gh_issue_tracker/ui/issues/issues_list_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
