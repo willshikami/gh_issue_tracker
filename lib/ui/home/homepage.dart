@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'package:gh_issue_tracker/constants/app_theme.dart';
 import 'package:gh_issue_tracker/ui/widgets/app_title_date.dart';
+import 'package:gh_issue_tracker/ui/widgets/containers.dart';
+import 'package:gh_issue_tracker/ui/widgets/issues_list.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appTheme().splashColor,
+      backgroundColor: appTheme().backgroundColor,
       body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 10,
-          ),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              AppTitle(),
-            ],
-          ),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            SpacedContainer(
+              containerChild: AppTitle(),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            IssuesList(),
+          ],
         ),
       ),
     );

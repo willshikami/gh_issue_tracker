@@ -5,10 +5,11 @@ ThemeData appTheme() {
     // Define the default brightness and colors.
     // brightness: Brightness.dark,
     // accentColor: Colors.cyan[600],
-    primaryColor: Colors.lightBlue[800],
-    splashColor: Color(0xFFECF3F8),
-    accentColor: Color(0xFF3C90E0),
-    textSelectionHandleColor: Color(0xFFA7A6A6),
+    primaryColor: Color(0xFF2F80ED),
+    backgroundColor: Color(0xFFECF3F8),
+    splashColor: Color(0xFFFFFFFF),
+    accentColor: Color(0xFFF2994A),
+    textSelectionHandleColor: Color(0xFF9AA0AC),
     textSelectionColor: Colors.black,
 
     // Default font family.
@@ -37,6 +38,7 @@ ThemeData appTheme() {
       ),
       bodyText1: TextStyle(
         fontSize: 14.0,
+        fontWeight: FontWeight.w700,
       ),
       bodyText2: TextStyle(
         fontSize: 12.0,

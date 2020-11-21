@@ -16,9 +16,6 @@ class _AppTitleState extends State<AppTitle> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        bottom: 24,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,7 +27,7 @@ class _AppTitleState extends State<AppTitle> {
                 ),
           ),
           SizedBox(
-            height: 5,
+            height: 6,
           ),
           //The date
           Row(
@@ -54,6 +51,29 @@ class _AppTitleState extends State<AppTitle> {
                 style: Theme.of(context).textTheme.headline3,
               ),
             ],
+          ),
+          SizedBox(
+            height: 32,
+          ),
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: appTheme().backgroundColor,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: TextField(
+              onChanged: (value) {
+                // TODO: text value
+              },
+              decoration: InputDecoration(
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                hintText: 'Search for issue',
+                prefixIcon: Icon(
+                  Icons.search,
+                ),
+              ),
+            ),
           ),
         ],
       ),
