@@ -17,6 +17,7 @@ class IssuesList extends StatefulWidget {
 }
 
 class _IssuesListState extends State<IssuesList> {
+  // Load more as the user scrolls
   // ScrollController _controller;
 
   // @override
