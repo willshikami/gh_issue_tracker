@@ -1,112 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gh_issue_tracker/constants/app_theme.dart';
-import 'package:gh_issue_tracker/logic/issues/models/issues_model.dart';
-import 'package:gh_issue_tracker/ui/widgets/containers.dart';
-
-class IssuesList extends StatefulWidget {
-  final List<Issue> issues;
-  final VoidCallback loadIssues;
-  final bool isLoading;
-  const IssuesList({Key key, this.issues, this.loadIssues, this.isLoading})
-      : super(key: key);
-
-  @override
-  _IssuesListState createState() => _IssuesListState();
-}
-
-class _IssuesListState extends State<IssuesList> {
-  // Load more as the user scrolls
-  // ScrollController _controller;
-
-  // @override
-  // void initState(){
-  //   _controller = ScrollController()
-  //   ..addListener(() {
-  //     if widget.isLoading && _controller.position.maxScrollExtent == _controller.position.pixels){
-  //       widget.loadMore;
-  //     }
-  //   });
-  //   super.initState();
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, dynamic>> issues = [
-      {
-        "issueTitle":
-            "Compilation error building on iOS simulator: fatal error: could not build module 'Foundation'",
-        "openedDate": "29 Oct 2019",
-        "issueStatus": "Open",
-        "username": "developerslearnit",
-        "comments": "55"
-      },
-      {
-        "issueTitle":
-            "Compilation error building on iOS simulator: fatal error: could not build module 'Foundation'",
-        "openedDate": "29 Oct 2019",
-        "issueStatus": "Open",
-        "username": "developerslearnit",
-        "comments": "55"
-      },
-      {
-        "issueTitle":
-            "Compilation error building on iOS simulator: fatal error: could not build module 'Foundation'",
-        "openedDate": "29 Oct 2019",
-        "issueStatus": "Open",
-        "username": "developerslearnit",
-        "comments": "55"
-      },
-      {
-        "issueTitle":
-            "Compilation error building on iOS simulator: fatal error: could not build module 'Foundation'",
-        "openedDate": "29 Oct 2019",
-        "issueStatus": "Open",
-        "username": "developerslearnit",
-        "comments": "55"
-      },
-    ];
-    // Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          // Load the lists here
-          widget.issues == null
-              ? Container()
-              : List.generate(
-                  issues.length,
-                  (index) => IssuesCard(
-                    dateOpened: issues[index]['openedDate'],
-                    issueComments: issues[index]['comments'],
-                    issueStatus: issues[index]['issueStatus'],
-                    issueTitle: '${issues[index]['issueTitle']} ',
-                    issueUser: issues[index]['username'],
-                  ),
-                ),
-        ],
-      ),
-    );
-  }
-}
+import 'package:gh_issue_tracker/presentation/widgets/containers.dart';
 
 class IssuesCard extends StatelessWidget {
-  const IssuesCard(
-      {Key key,
-      @required this.issueTitle,
-      @required this.dateOpened,
-      @required this.issueStatus,
-      @required this.issueUser,
-      @required this.issueComments,
-      this.issueNumber})
-      : super(key: key);
+  const IssuesCard({
+    Key key,
+    @required this.issueTitle,
+    @required this.dateOpened,
+    @required this.issueStatus,
+    @required this.issueUser,
+    @required this.issueComments,
+    @required this.userAvatar,
+    this.issueNumber,
+  }) : super(key: key);
 
   final String issueTitle;
   final String dateOpened;
   final String issueStatus;
   final String issueUser;
-  final String issueComments;
-  final String issueNumber;
+  final int issueComments;
+  final int issueNumber;
+  final String userAvatar;
 
   @override
   Widget build(BuildContext context) {
@@ -127,16 +42,16 @@ class IssuesCard extends StatelessWidget {
                     Text(
                       'Opened',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: appTheme().textSelectionHandleColor,
+                            color: appTheme().primaryColorLight,
                           ),
                     ),
                     SizedBox(
                       width: 4,
                     ),
                     Text(
-                      dateOpened,
+                      '$dateOpened',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: appTheme().textSelectionHandleColor,
+                            color: appTheme().primaryColorLight,
                           ),
                     )
                   ],
@@ -175,18 +90,18 @@ class IssuesCard extends StatelessWidget {
                         TextSpan(
                           text: issueTitle,
                           style: Theme.of(context).textTheme.headline4.copyWith(
-                                color: appTheme().textSelectionColor,
+                                color: appTheme().shadowColor,
                               ),
                         ),
                         // Issue Number
                         TextSpan(
-                          text: '#',
+                          text: ' #',
                           style: Theme.of(context).textTheme.headline4.copyWith(
                                 color: appTheme().accentColor,
                               ),
                         ),
                         TextSpan(
-                          text: issueNumber,
+                          text: '$issueNumber',
                           style: Theme.of(context).textTheme.headline4.copyWith(
                                 color: appTheme().accentColor,
                               ),
@@ -207,11 +122,10 @@ class IssuesCard extends StatelessWidget {
                   // User
                   Row(
                     children: [
-                      SvgPicture.asset(
-                        'assets/icons/user.svg',
-                        height: 18,
-                        width: 18,
-                        color: appTheme().textSelectionHandleColor,
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(userAvatar),
+                        backgroundColor: appTheme().primaryColorLight,
+                        radius: 12,
                       ),
                       SizedBox(
                         width: 8,
@@ -219,7 +133,7 @@ class IssuesCard extends StatelessWidget {
                       Text(
                         issueUser,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: appTheme().textSelectionHandleColor,
+                              color: appTheme().primaryColorLight,
                             ),
                       )
                     ],
@@ -231,21 +145,21 @@ class IssuesCard extends StatelessWidget {
                         'assets/icons/message.svg',
                         height: 16,
                         width: 16,
-                        color: appTheme().textSelectionHandleColor,
+                        color: appTheme().primaryColorLight,
                       ),
                       SizedBox(
                         width: 8,
                       ),
                       Text(
-                        issueComments,
+                        '$issueComments',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: appTheme().textSelectionHandleColor,
+                              color: appTheme().primaryColorLight,
                             ),
                       ),
                       Text(
                         ' comments',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: appTheme().textSelectionHandleColor,
+                              color: appTheme().primaryColorLight,
                             ),
                       )
                     ],

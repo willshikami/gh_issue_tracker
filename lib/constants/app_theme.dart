@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 ThemeData appTheme() {
   return ThemeData(
     // Define the default brightness and colors.
-    // brightness: Brightness.dark,
-    // accentColor: Colors.cyan[600],
     primaryColor: Color(0xFF2F80ED),
     backgroundColor: Color(0xFFECF3F8),
     splashColor: Color(0xFFFFFFFF),
     accentColor: Color(0xFFF2994A),
-    textSelectionHandleColor: Color(0xFF9AA0AC),
-    textSelectionColor: Colors.black,
+    primaryColorLight: Color(0xFF9AA0AC),
+    shadowColor: Colors.black,
 
     // Default font family.
     fontFamily: 'Avenir',
