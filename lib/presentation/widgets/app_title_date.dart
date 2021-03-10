@@ -23,7 +23,7 @@ class _AppTitleState extends State<AppTitle> {
           Text(
             'Today',
             style: Theme.of(context).textTheme.headline1.copyWith(
-                  color: appTheme().textSelectionColor,
+                  color: appTheme().shadowColor,
                 ),
           ),
           SizedBox(
@@ -62,9 +62,7 @@ class _AppTitleState extends State<AppTitle> {
               borderRadius: BorderRadius.circular(24),
             ),
             child: TextField(
-              onChanged: (value) {
-                // TODO: text value
-              },
+              onChanged: (value) {},
               decoration: InputDecoration(
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
