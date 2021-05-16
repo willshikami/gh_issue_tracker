@@ -6,7 +6,7 @@ class AppActionsState {
   });
 
   AppActionsState copy({
-    bool isLessThanADay,
+    bool isLessThanADay, List githubIssuesFilterList,
   }) {
     return AppActionsState(
       isLessThanADay: isLessThanADay ?? this.isLessThanADay,

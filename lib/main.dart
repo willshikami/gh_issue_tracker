@@ -9,8 +9,8 @@ Store<AppState> store;
 void main() async {
   store = Store<AppState>(
     initialState: AppState.initial(),
-    actionObservers: [Log<AppState>.printer()],
-    modelObserver: DefaultModelObserver(),
+    // actionObservers: [Log<AppState>.printer()],
+    // modelObserver: DefaultModelObserver(),
   );
   runApp(
     MyApp(),

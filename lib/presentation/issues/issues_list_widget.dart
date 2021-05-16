@@ -6,6 +6,7 @@ import 'package:gh_issue_tracker/business/service/service.dart';
 import 'package:gh_issue_tracker/business/redux/app_state.dart';
 import 'package:gh_issue_tracker/presentation/issues/issue_card.dart';
 import 'package:gh_issue_tracker/business/redux/view_models/app_state_viewmodel.dart';
+import 'package:gh_issue_tracker/presentation/widgets/platform_loading_indicator.dart';
 
 class IssuesList extends StatefulWidget {
   final List<IssuesList> issues;
@@ -46,36 +47,42 @@ class _IssuesListState extends State<IssuesList> {
                 builder: (BuildContext context, AppStateViewModel vm) {
                   final List githubIssueList =
                       vm.state.githubIssuesListState.githubIssuesList;
-                  return RefreshIndicator(
-                    onRefresh: () {},
-                    child: Column(
-                      children: List.generate(
-                          githubIssueList.length,
-                          (index) => IssuesCard(
-                                postLink: githubIssueList[index]['html_url'],
-                                userAvatar: githubIssueList[index]['user']
-                                    ['avatar_url'],
-                                dateOpened: githubIssueList[index]
-                                    ['created_at'],
-                                issueNumber: githubIssueList[index]['number'],
-                                issueComments: githubIssueList[index]
-                                    ['comments'],
-                                issueStatus: githubIssueList[index]['state'],
-                                issueTitle: githubIssueList[index]['title'],
-                                issueUser: githubIssueList[index]['user']
-                                    ['login'],
-                              )),
-                    ),
-                  );
+                  return snapshot.data != null
+                      ? Column(
+                          children: List.generate(
+                              githubIssueList.length,
+                              (index) => IssuesCard(
+                                    postLink: githubIssueList[index]
+                                        ['html_url'],
+                                    userAvatar: githubIssueList[index]['user']
+                                        ['avatar_url'],
+                                    dateOpened: githubIssueList[index]
+                                        ['created_at'],
+                                    issueNumber: githubIssueList[index]
+                                        ['number'],
+                                    issueComments: githubIssueList[index]
+                                        ['comments'],
+                                    issueStatus: githubIssueList[index]
+                                        ['state'],
+                                    issueTitle: githubIssueList[index]['title'],
+                                    issueUser: githubIssueList[index]['user']
+                                        ['login'],
+                                  )),
+                        )
+                      : Container(
+                          padding: EdgeInsets.symmetric(vertical: 180),
+                          child: Center(
+                            child: PlatformLoadingIndicator(),
+                          ),
+                        );
                 });
           }
           return Container(
             padding: EdgeInsets.symmetric(vertical: 180),
             child: Center(
-              child: CircularProgressIndicator(),
+              child: PlatformLoadingIndicator(),
             ),
           );
-          ;
         });
   }
 }

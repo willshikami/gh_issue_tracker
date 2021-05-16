@@ -2,6 +2,7 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/built_value.dart';
 
 import 'package:gh_issue_tracker/business/redux/models/app_actions_state.dart';
+import 'package:gh_issue_tracker/business/redux/models/issues_filter_list_state.dart';
 import 'package:gh_issue_tracker/business/redux/models/issues_list_state.dart';
 import 'package:gh_issue_tracker/business/redux/models/issues_state.dart';
 import 'package:gh_issue_tracker/business/serializers/serializers.dart';
@@ -18,30 +19,37 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   @BuiltValueField(wireName: 'appActionsState')
   AppActionsState get appActionsState;
 
+  @BuiltValueField(wireName: 'githubIssuesFilterListState')
+  GithubIssuesFilterListState get githubIssuesFilterListState;
+
   AppState._();
 
   factory AppState.initial() => AppState(
         (AppStateBuilder b) => b
           ..githubIssues = GithubIssuesState.initialState()
           ..githubIssuesListState = GithubIssuesListState.initialState()
-          ..appActionsState = AppActionsState.initialState(),
+          ..appActionsState = AppActionsState.initialState()
+          ..githubIssuesFilterListState =
+              GithubIssuesFilterListState.initialState(),
       );
 
   static Serializer<AppState> get serializer => _$appStateSerializer;
 
   factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;
 
-  factory AppState.copyWith({
-    GithubIssuesState githubIssues,
-    GithubIssuesListState githubIssuesListState,
-    AppActionsState appActionsState,
-  }) {
+  factory AppState.copyWith(
+      {GithubIssuesState githubIssues,
+      GithubIssuesListState githubIssuesListState,
+      AppActionsState appActionsState,
+      GithubIssuesFilterListState githubIssuesFilterListState}) {
     return AppState(
       (AppStateBuilder b) => b
         .._githubIssues = githubIssues ?? GithubIssuesState.initialState()
         .._githubIssuesListState =
             githubIssuesListState ?? GithubIssuesListState.initialState()
-        .._appActionsState = appActionsState ?? AppActionsState.initialState(),
+        .._appActionsState = appActionsState ?? AppActionsState.initialState()
+        .._githubIssuesFilterListState = githubIssuesFilterListState ??
+            GithubIssuesFilterListState.initialState(),
     );
   }
 
@@ -49,6 +57,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
         githubIssues: this.githubIssues,
         githubIssuesListState: this.githubIssuesListState,
         appActionsState: this.appActionsState,
+        githubIssuesFilterListState: this.githubIssuesFilterListState,
       );
 
   Map<String, dynamic> toJson() =>

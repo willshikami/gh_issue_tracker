@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gh_issue_tracker/business/service/service.dart';
 
 import 'package:gh_issue_tracker/constants/app_theme.dart';
 import 'package:gh_issue_tracker/presentation/widgets/containers.dart';
@@ -25,17 +26,21 @@ class HomePage extends StatelessWidget {
               preferredSize: Size.fromHeight(228),
             ),
           ),
-          buildBody()
+          buildBody(context)
         ],
       ),
     );
   }
 
-  Widget buildBody() => SliverToBoxAdapter(
-        child: Column(
-          children: [
-            IssuesList(),
-          ],
-        ),
-      );
+  Widget buildBody(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: RefreshIndicator(
+      onRefresh: () => reloadIssues(context),
+      child: Column(
+        children: [
+          IssuesList(),
+        ],
+      ),
+    ));
+  }
 }

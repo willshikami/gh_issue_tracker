@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:gh_issue_tracker/business/redux/actions/fetch_issues_action.dart';
+import 'package:gh_issue_tracker/presentation/widgets/platform_loading_indicator.dart';
 import 'package:http/http.dart' as http;
 import 'package:async_redux/async_redux.dart';
 
@@ -29,11 +31,17 @@ class AppService {
         GithubIssuesListStateActions(githubIssuesList: issuesResponseList),
       );
     }
-    // print(issuesResponseList[0]['user']['login']);
-    // print(StoreProvider.state<AppState>(context)
-    //     .githubIssuesListState
-    //     .githubIssuesList
-    //     .length);
     return issuesResponseList;
   }
+}
+
+toggleLoadingIndicator({bool show, BuildContext context}) {
+  if (show == true) {
+    return PlatformLoadingIndicator();
+  }
+}
+
+Future<void> reloadIssues(BuildContext context) async {
+  await StoreProvider.dispatchFuture(
+      context, FetchIssuesAction(context: context));
 }
