@@ -27,6 +27,9 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
       'appActionsState',
       serializers.serialize(object.appActionsState,
           specifiedType: const FullType(AppActionsState)),
+      'githubIssuesFilterListState',
+      serializers.serialize(object.githubIssuesFilterListState,
+          specifiedType: const FullType(GithubIssuesFilterListState)),
     ];
 
     return result;
@@ -58,6 +61,11 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
                   specifiedType: const FullType(AppActionsState))
               as AppActionsState;
           break;
+        case 'githubIssuesFilterListState':
+          result.githubIssuesFilterListState = serializers.deserialize(value,
+                  specifiedType: const FullType(GithubIssuesFilterListState))
+              as GithubIssuesFilterListState;
+          break;
       }
     }
 
@@ -72,12 +80,17 @@ class _$AppState extends AppState {
   final GithubIssuesState githubIssues;
   @override
   final AppActionsState appActionsState;
+  @override
+  final GithubIssuesFilterListState githubIssuesFilterListState;
 
   factory _$AppState([void Function(AppStateBuilder) updates]) =>
       (new AppStateBuilder()..update(updates)).build();
 
   _$AppState._(
-      {this.githubIssuesListState, this.githubIssues, this.appActionsState})
+      {this.githubIssuesListState,
+      this.githubIssues,
+      this.appActionsState,
+      this.githubIssuesFilterListState})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         githubIssuesListState, 'AppState', 'githubIssuesListState');
@@ -85,6 +98,8 @@ class _$AppState extends AppState {
         githubIssues, 'AppState', 'githubIssues');
     BuiltValueNullFieldError.checkNotNull(
         appActionsState, 'AppState', 'appActionsState');
+    BuiltValueNullFieldError.checkNotNull(
+        githubIssuesFilterListState, 'AppState', 'githubIssuesFilterListState');
   }
 
   @override
@@ -100,14 +115,16 @@ class _$AppState extends AppState {
     return other is AppState &&
         githubIssuesListState == other.githubIssuesListState &&
         githubIssues == other.githubIssues &&
-        appActionsState == other.appActionsState;
+        appActionsState == other.appActionsState &&
+        githubIssuesFilterListState == other.githubIssuesFilterListState;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, githubIssuesListState.hashCode), githubIssues.hashCode),
-        appActionsState.hashCode));
+        $jc($jc($jc(0, githubIssuesListState.hashCode), githubIssues.hashCode),
+            appActionsState.hashCode),
+        githubIssuesFilterListState.hashCode));
   }
 
   @override
@@ -115,7 +132,8 @@ class _$AppState extends AppState {
     return (newBuiltValueToStringHelper('AppState')
           ..add('githubIssuesListState', githubIssuesListState)
           ..add('githubIssues', githubIssues)
-          ..add('appActionsState', appActionsState))
+          ..add('appActionsState', appActionsState)
+          ..add('githubIssuesFilterListState', githubIssuesFilterListState))
         .toString();
   }
 }
@@ -139,6 +157,13 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   set appActionsState(AppActionsState appActionsState) =>
       _$this._appActionsState = appActionsState;
 
+  GithubIssuesFilterListState _githubIssuesFilterListState;
+  GithubIssuesFilterListState get githubIssuesFilterListState =>
+      _$this._githubIssuesFilterListState;
+  set githubIssuesFilterListState(
+          GithubIssuesFilterListState githubIssuesFilterListState) =>
+      _$this._githubIssuesFilterListState = githubIssuesFilterListState;
+
   AppStateBuilder();
 
   AppStateBuilder get _$this {
@@ -147,6 +172,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       _githubIssuesListState = $v.githubIssuesListState;
       _githubIssues = $v.githubIssues;
       _appActionsState = $v.appActionsState;
+      _githubIssuesFilterListState = $v.githubIssuesFilterListState;
       _$v = null;
     }
     return this;
@@ -172,7 +198,11 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
             githubIssues: BuiltValueNullFieldError.checkNotNull(
                 githubIssues, 'AppState', 'githubIssues'),
             appActionsState: BuiltValueNullFieldError.checkNotNull(
-                appActionsState, 'AppState', 'appActionsState'));
+                appActionsState, 'AppState', 'appActionsState'),
+            githubIssuesFilterListState: BuiltValueNullFieldError.checkNotNull(
+                githubIssuesFilterListState,
+                'AppState',
+                'githubIssuesFilterListState'));
     replace(_$result);
     return _$result;
   }
